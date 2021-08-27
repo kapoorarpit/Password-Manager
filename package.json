@@ -1,0 +1,20 @@
+{
+  "name": "password-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "electron-trace": "electron --trace-warnings ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "13.2.1"
+  },
+  "dependencies": {
+    "@supercharge/strings": "^1.19.0",
+    "crypto-random-string": "^4.0.0"
+  }
+}
