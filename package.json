@@ -5,16 +5,18 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "electron-trace": "electron --trace-warnings ."
+    "electron-trace": "electron --trace-warnings .",
+    "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "13.2.1"
+    "electron": "^13.2.1"
   },
   "dependencies": {
     "@supercharge/strings": "^1.19.0",
-    "crypto-random-string": "^4.0.0"
+    "crypto-random-string": "^4.0.0",
+    "sqlite3": "^5.0.2"
   }
 }

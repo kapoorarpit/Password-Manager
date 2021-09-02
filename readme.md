@@ -1,0 +1,1 @@
+A password with 8 characters could be any one of these 96, taken to the eighth power for the varying patterns. That means over 7,200 trillion password options! Not even a computer could easily handle cracking a password with that type of complexity!

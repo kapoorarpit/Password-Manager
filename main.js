@@ -3,6 +3,7 @@ const path = require('path')
 const url = require('url')
 const shell = require('electron').shell
 const ipc = require('electron').ipcMain
+const sqlite3 = require('sqlite3').verbose();
 
 function createWindow () {
 
@@ -16,9 +17,23 @@ function createWindow () {
       webSecurity: false
     },
   }) 
-  mainWindow.loadFile('./nalika/index.html')
+  mainWindow.loadFile('./nalika/login.html')
 }
 
+let db = new sqlite3.Database(':memory:', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database.');
+});
+
+/*
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Close the database connection.');
+});*/
 
 ipcMain.on("user-data",(event, arg)=>{
   console.log(arg);
@@ -27,4 +42,12 @@ app.on('ready', createWindow)
 
 ipcMain.on('Retry-password-check', function(event){
   dialog.showErrorBox('Password not matching','Please retry')
+})
+
+ipcMain.on('login', function(event,args){
+  console.log(args)
+})
+
+ipcMain.on('register', function(event,args){
+  console.log(args)
 })
