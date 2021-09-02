@@ -51,7 +51,11 @@ ipcMain.on("user-data",(event, arg)=>{
 })
 
 ipcMain.on('Retry-password-check', function(event){
-  dialog.showErrorBox('Password not matching','Please retry')
+  dialog.showErrorBox('Password not matching','Please try again')
+})
+
+ipcMain.on('No-null-allowed', function(event){
+  dialog.showErrorBox('Null value not allowed','Please try again')
 })
 
 ipcMain.on('navigate-login', function(){

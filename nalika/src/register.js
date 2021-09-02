@@ -12,11 +12,15 @@ submit.addEventListener('click',function(event){
     args.push(document.getElementById('password').value);
     args.push(document.getElementById('password-again').value);
     console.log("working")
-    if(args[1]==args[2])
-    {renderer.send("register",args);
+
+    if(args[1]!=args[2]){
+        renderer.send('Retry-password-check')
+    }
+    else if(args[0]=="" || args[1]=="" || args[2]=="" ){
+        renderer.send('No-null-allowed')
     }
     else
     {
-        renderer.send('Retry-password-check')
+        renderer.send("register",args)
     }
 })
