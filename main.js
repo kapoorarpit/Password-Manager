@@ -66,7 +66,8 @@ ipcMain.on('login', function(event,args){
 // register --------------------
 
 ipcMain.on('register', function(event,args){
-db.run('CREATE TABLE user(name TEXT PRIMARY KEY,password TEXT NOT NULL)',function(err){
+  mainWindow.loadFile('./nalika/index.html')
+db.run('CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY,password TEXT NOT NULL)',function(err){
   if(err){
     console.log(err)
     return
@@ -78,16 +79,11 @@ db.run('CREATE TABLE user(name TEXT PRIMARY KEY,password TEXT NOT NULL)',functio
   })
   console.log("register")
 })
-db.run('CREATE TABLE entries(entry TEXT PRIMARY KEY,password TEXT NOT NULL, strength INT NOT NULL)',function(err){
+db.run('CREATE TABLE IF NOT EXISTS entries(entry TEXT PRIMARY KEY,password TEXT NOT NULL, strength INT NOT NULL)',function(err){
   if(err){
     console.log(err)
     return
   }
-  db.run('INSERT INTO entries(entry, password, strength) VALUES(?, ?,?)', ['Facebook','pass',100], (err) => {
-    if(err) {
-      return console.log(err.message); 
-    }
-  })
   console.log("register")
 })
   console.log(args)
@@ -97,11 +93,9 @@ db.run('CREATE TABLE entries(entry TEXT PRIMARY KEY,password TEXT NOT NULL, stre
 db.run(`DROP TABLE user;`)
 db.run(`DROP TABLE entries;`)
 */
-
 //checks all the tables
 db.serialize(function () {
   db.all("select name from sqlite_master where type='table'", function (err, tables) {
       console.log(tables);
   });
 })
-
