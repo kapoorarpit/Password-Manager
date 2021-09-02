@@ -12,5 +12,4 @@ submit.addEventListener('click',function(event){
     args.push(document.getElementById('password').value);
     console.log("working")
     renderer.send('login',args)
-    console.log(args)
 })

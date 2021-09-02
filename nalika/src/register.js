@@ -12,9 +12,9 @@ submit.addEventListener('click',function(event){
     args.push(document.getElementById('password').value);
     args.push(document.getElementById('password-again').value);
     console.log("working")
-    renderer.send('login',args)
     if(args[1]==args[2])
-    {renderer.send("register",args);}
+    {renderer.send("register",args);
+    }
     else
     {
         renderer.send('Retry-password-check')
