@@ -54,6 +54,9 @@ ipcMain.on('Retry-password-check', function(event){
   dialog.showErrorBox('Password not matching','Please retry')
 })
 
+ipcMain.on('navigate-login', function(){
+mainWindow.loadFile('./nalika/login.html')
+})
 // login --------------------
 
 ipcMain.on('login', function(event,args){
@@ -64,9 +67,10 @@ ipcMain.on('login', function(event,args){
 
 
 // register --------------------
-
 ipcMain.on('register', function(event,args){
-  mainWindow.loadFile('./nalika/index.html')
+
+
+//databse -----------------
 db.run('CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY,password TEXT NOT NULL)',function(err){
   if(err){
     console.log(err)
@@ -87,6 +91,23 @@ db.run('CREATE TABLE IF NOT EXISTS entries(entry TEXT PRIMARY KEY,password TEXT 
   console.log("register")
 })
   console.log(args)
+  //naviagate
+  let modalPath= path.join(__dirname,'./nalika/src/navigate.html')
+  let win = new BrowserWindow({
+    width: 400, 
+    height: 200 , 
+    frame: false,   
+    //alwaysOnTop: true,
+     webPreferences: {
+    nodeIntegration: true,
+    contextIsolation: false,
+    enableRemoteModule: true,
+    webSecurity: false,
+    transparent : true
+  },})
+  win.on('close', function () { win = null })
+  win.loadFile(modalPath);
+  win.show()
 })
 
 /*
