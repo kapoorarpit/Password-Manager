@@ -41,6 +41,7 @@ submit.addEventListener('click',function(event){
     args.push(document.getElementById('name').value);
     args.push(document.getElementById('password').value);
     args.push(document.getElementById('check-password').value);
+    args.push(100)
     console.log("working")
     if(args[1]==args[2])
     {renderer.send("user-data",args);

@@ -6,6 +6,8 @@ const ipc = require('electron').ipcMain
 const sqlite3 = require('sqlite3').verbose();
 
 
+
+var user_table
 var mainWindow
 function createWindow () {
 
@@ -40,8 +42,18 @@ var db = new sqlite3.Database(__dirname + '/app.db');
 
 
 //section ends------------------------------------------------------------------------------------------------
-ipcMain.on("user-data",(event, arg)=>{
-  console.log(arg);
+ipcMain.on("user-data",(event, args)=>{
+  console.log(args);
+  console.log(user_table)
+  var query="INSERT INTO "+user_table+" VALUES('"+args[0]+"',"+args[1]+","+args[3]+")"
+  //var query ="INSERT INTO arpit_entries VALUES('11','1',1)"
+  db.run(query, function(err) {
+    if (err) {
+      return console.log(err.message);
+    }
+    // get the last insert id
+    console.log(`A row has been inserted with row`);
+  });
 })
 
 ipcMain.on('Retry-password-check', function(event){
@@ -96,6 +108,7 @@ ipcMain.on('login', function(event,args){
       }
     }
   })
+  user_table=args[0]+"_entries"
   console.log(args)
 })
 
@@ -142,28 +155,8 @@ db.run(query,function(err){
   win.on('close', function () { win = null })
   win.loadFile(modalPath);
   win.show()
-  console.log("Line 107 'register' working")
+  console.log("Line 145 'register' working")
 })
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-db.run(`DROP TABLE user;`)
-db.run(`DROP TABLE entries;`)
-*/
-
-
-
-
 
 
 //checks all the tables
@@ -174,7 +167,7 @@ db.serialize(function () {
   });
 })
 
-/*
+
 db.serialize(function() {
 
   db.all("SELECT * FROM user", function(err, allRows) {
@@ -187,8 +180,8 @@ db.serialize(function() {
 });
 
 db.serialize(function() {
-
-  db.all("SELECT * FROM entries", function(err, allRows) {
+var query="SELECT * FROM arpit_entries"
+  db.all(query, function(err, allRows) {
 
       if(err != null){
           console.log(err);
@@ -196,4 +189,3 @@ db.serialize(function() {
       console.log(allRows)
   });
 });
-*/
