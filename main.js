@@ -1,10 +1,10 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog, BrowserWindowProxy } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, dialog, BrowserWindowProxy, ipcRenderer } = require('electron')
 const path = require('path')
 const url = require('url')
 const shell = require('electron').shell
 const ipc = require('electron').ipcMain
 const sqlite3 = require('sqlite3').verbose();
-
+const renderer = require('electron').ipcRenderer
 
 
 var user_table
@@ -45,8 +45,7 @@ var db = new sqlite3.Database(__dirname + '/app.db');
 ipcMain.on("user-data",(event, args)=>{
   console.log(args);
   console.log(user_table)
-  var query="INSERT INTO "+user_table+" VALUES('"+args[0]+"',"+args[1]+","+args[3]+")"
-  //var query ="INSERT INTO arpit_entries VALUES('11','1',1)"
+  var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+args[3]+")"
   db.run(query, function(err) {
     if (err) {
       return console.log(err.message);
@@ -67,6 +66,19 @@ ipcMain.on('No-null-allowed', function(event){
 ipcMain.on('navigate-login', function(){
 mainWindow.loadFile('./nalika/login.html')
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // login --------------------
@@ -167,7 +179,7 @@ db.serialize(function () {
   });
 })
 
-
+/*
 db.serialize(function() {
 
   db.all("SELECT * FROM user", function(err, allRows) {
@@ -180,7 +192,7 @@ db.serialize(function() {
 });
 
 db.serialize(function() {
-var query="SELECT * FROM arpit_entries"
+var query="SELECT * FROM "+user_table
   db.all(query, function(err, allRows) {
 
       if(err != null){
@@ -189,3 +201,19 @@ var query="SELECT * FROM arpit_entries"
       console.log(allRows)
   });
 });
+
+var data
+var data_query='select * from arpit_entries'
+db.get(data_query,function(err,rows){
+  if(err)
+  {
+    console.log(err)
+  }
+  else
+  {
+    console.log(rows)
+    data = rows
+  }
+})
+
+*/
