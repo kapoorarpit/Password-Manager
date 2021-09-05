@@ -1,21 +1,16 @@
-const suggession = document.getElementById('suggest')
+const electron = require('electron')
+const path = require('path')
+const Str = require('@supercharge/strings')
+const { clipboard } = require('electron')
+const remote = electron.remote
 
-suggession.addEventListener('click',function(event){
-    console.log("suggest")
-    let modalPath= path.join(__dirname,'suggestion.html')
-    let win = new BrowserWindow({
-        width: 400, 
-        height: 200 , 
-        frame: false,   
-        //alwaysOnTop: true,
-         webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-        enableRemoteModule: true,
-        webSecurity: false,
-        transparent : true
-      },})
-      win.on('close', function () { win = null })
-      win.loadFile(modalPath);
-      win.show()
+var str =document.getElementById('data');
+
+str.innerHTML="100";
+
+const closeBtn = document.getElementById('close')
+
+closeBtn.addEventListener('click', function (event) {
+    var window = remote.getCurrentWindow();
+    window.close();
 })
