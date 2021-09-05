@@ -1,9 +1,7 @@
 Prerequisets
 * npm
-* Electron  run - 
-        * npm install electron --save-dev
-* Sqlite3   
-        * run - npm i sqlite3
+* Electron  run -  npm install electron --save-dev
+* Sqlite3   run - npm i sqlite3
 
 
 How to install ??
