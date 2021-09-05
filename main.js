@@ -45,7 +45,8 @@ var db = new sqlite3.Database(__dirname + '/app.db');
 ipcMain.on("user-data",(event, args)=>{
   console.log(args);
   console.log(user_table)
-  var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+args[3]+")"
+  var password_strength=checkpassword(args[0],args[1])
+  var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+password_strength+")"
   db.run(query, function(err) {
     if (err) {
       return console.log(err.message);
@@ -70,11 +71,12 @@ mainWindow.loadFile('./nalika/login.html')
 ipcMain.on('display-strength', function(event,args){
   console.log(args)
   var s= checkpassword(args[0],args[1])
-  var f = s.toString()
+  var f = s.toString()+" out of 100"
   dialog.showMessageBox(null,{
     title: "Strength",
     detail: "is the strenght of currently entered password",
-    message: f
+    message: f,
+    frame: false
   })
 })
 
@@ -101,6 +103,7 @@ ipcMain.on('login', function(event,args){
   db.get(query,(err,rows)=>{
     if(err){
       console.log(err)
+      dialog.showErrorBox('No Entry Found','Please register first')
       return
     }
     else {
@@ -189,6 +192,7 @@ db.serialize(function () {
   });
 })
 
+
 /*
 db.serialize(function() {
 
@@ -225,8 +229,8 @@ db.get(data_query,function(err,rows){
     data = rows
   }
 })
-
 */
+
 
 
 function checkpassword(name, password) {
