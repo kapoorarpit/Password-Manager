@@ -37,7 +37,7 @@ db.close((err) => {
 });*/
 
 
-//Need a check-------------------------------------------------------------------------------------------------
+//db-------------------------------------------------------------------------------------------------
 var db = new sqlite3.Database(__dirname + '/app.db');
 
 
@@ -67,6 +67,14 @@ ipcMain.on('navigate-login', function(){
 mainWindow.loadFile('./nalika/login.html')
 })
 
+ipcMain.on('display-strength', function(event,args){
+  console.log(args)
+  var s= 'The strength of password is'+ "100"
+  dialog.showMessageBox(null,{
+    title: "Strength",
+    message: s
+  })
+})
 
 
 

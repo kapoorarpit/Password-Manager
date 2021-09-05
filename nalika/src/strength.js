@@ -14,3 +14,7 @@ closeBtn.addEventListener('click', function (event) {
     var window = remote.getCurrentWindow();
     window.close();
 })
+
+
+var pass= document.getElementById('password').value;
+console.log(pass)

@@ -58,6 +58,14 @@ submit.addEventListener('click',function(event){
 const strength = document.getElementById('strength1')
 
 strength.addEventListener('click',function(event){
+    var args = [];
+    args.push(document.getElementById('password').value);
+    renderer.send("display-strength",args)
+})
+
+
+/*
+strength.addEventListener('click',function(event){
     let modalPath= path.join(__dirname,'strength.html')
     let win = new BrowserWindow({
         width: 400, 
@@ -74,4 +82,6 @@ strength.addEventListener('click',function(event){
       win.on('close', function () { win = null })
       win.loadFile(modalPath);
       win.show()
+      win.webContents.openDevTools()
 })
+*/
