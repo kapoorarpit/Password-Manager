@@ -1,1 +1,14 @@
-A password with 8 characters could be any one of these 96, taken to the eighth power for the varying patterns. That means over 7,200 trillion password options! Not even a computer could easily handle cracking a password with that type of complexity!
+Prerequisets
+* npm
+* Electron  run - npm install electron --save-dev
+* Sqlite3   run - npm i sqlite3
+
+
+How to install ??
+* navigate to password-generator folder 
+* run - npm start 
+
+
+User-name constraints
+* Username must not contain spaces.
+* Username must contain alphabets only.
