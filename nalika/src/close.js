@@ -59,6 +59,7 @@ const strength = document.getElementById('strength1')
 
 strength.addEventListener('click',function(event){
     var args = [];
+    args.push(document.getElementById('name').value);
     args.push(document.getElementById('password').value);
     renderer.send("display-strength",args)
 })

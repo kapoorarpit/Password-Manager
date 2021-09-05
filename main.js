@@ -69,10 +69,12 @@ mainWindow.loadFile('./nalika/login.html')
 
 ipcMain.on('display-strength', function(event,args){
   console.log(args)
-  var s= 'The strength of password is'+ "100"
+  var s= checkpassword(args[0],args[1])
+  var f = s.toString()
   dialog.showMessageBox(null,{
     title: "Strength",
-    message: s
+    detail: "is the strenght of currently entered password",
+    message: f
   })
 })
 
@@ -225,3 +227,61 @@ db.get(data_query,function(err,rows){
 })
 
 */
+
+
+function checkpassword(name, password) {
+  var strength = 0;
+  if (password.match(/[a-z]+/)) {
+    strength += 3;
+  }
+  if (password.match(/[A-Z]+/)) {
+    strength += 3;
+  }
+  if (password.match(/[0-9]+/)) {
+    strength += 3;
+  }
+  if (password.match(/[$@#&!]+/)) {
+    strength += 3;
+
+  }
+  if(name.match(password)){
+    return 0
+  }
+
+  if(password.includes(name)){
+    strength -=5;
+  }
+  if (password.length < 6) {
+    strength -=3
+  }
+
+
+  if (password.length > 12) {
+    strength +=5
+  }
+
+  if(strength<0)
+  strength=0;
+  if(strength>10)
+  strength=10
+  switch (strength) {
+    case 0:
+    case 1:
+    case 2:
+    case 3: 
+      return 25;
+
+    case 4:
+    case 5:
+    case 6:
+      return 50;
+
+    case 7:
+    case 8:
+    case 9:
+        return 75;
+
+    case 10:
+        return 100;
+  }
+}
