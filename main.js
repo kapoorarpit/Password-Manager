@@ -2,7 +2,6 @@ const { app, BrowserWindow, Menu, ipcMain, dialog, BrowserWindowProxy, ipcRender
 const path = require('path')
 const url = require('url')
 const shell = require('electron').shell
-const ipc = require('electron').ipcMain
 const sqlite3 = require('sqlite3').verbose();
 const renderer = require('electron').ipcRenderer
 
@@ -96,7 +95,6 @@ ipcMain.on('display-strength', function(event,args){
 // login --------------------
 
 ipcMain.on('login', function(event,args){
-  //var db = new sqlite3.Database(__dirname + '/app.db');
   console.log("Login")
   var query = "SELECT name FROM user WHERE name = '" + args[0]+"'";
   var q=1
@@ -135,6 +133,7 @@ ipcMain.on('login', function(event,args){
   })
   user_table=args[0]+"_entries"
   console.log(args)
+  event.reply('login', 'pong')
 })
 
 
@@ -144,17 +143,27 @@ ipcMain.on('login', function(event,args){
 // register --------------------
 ipcMain.on('register', function(event,args){
 //databse -----------------
+var check_register=0
+
 db.run('CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY,password TEXT NOT NULL)',function(err){
   if(err){
     console.log(err)
     return
   }
-  db.run('INSERT INTO user(name, password) VALUES(?, ?)', [args[0],args[1]], (err) => {
+
+
+db.run('INSERT INTO user(name, password) VALUES(?, ?)', [args[0],args[1]], (err) => {
     if(err) {
+      dialog.showErrorBox("user name taken","please try again")
+      check_register=1
       return console.log(err.message); 
     }
   })
 })
+if(check_register==1){
+return}
+console.log("166")
+//check query
 var query="CREATE TABLE IF NOT EXISTS "+args[0]+"_entries(entry TEXT PRIMARY KEY,password TEXT NOT NULL, strength INT NOT NULL)"
 db.run(query,function(err){
   if(err){
@@ -289,3 +298,48 @@ function checkpassword(name, password) {
         return 100;
   }
 }
+
+
+
+  /*
+  var master = document.getElementById("master")
+  var newdiv= document.createElement("div")
+  console.log("div created")
+  newdiv.className = "col-lg-3 col-md-3 col-sm-3 col-xs-12"
+  var div1=document.createElement("div")
+  div1.className = "admin-content analysis-progrebar-ctn res-mg-t-15"
+  var h1 = document.createElement('h4');
+  h1.className = 'text-left text-uppercase'
+  h1.textContent = 'Sample';
+  var div2=document.createElement("div")
+  div2.className = "admin-content analysis-progrebar-ctn res-mg-t-15"
+  var div3= document.createElement("div")
+  div3.className = "colvertical-center-box vertical-center-box-tablet"
+  var div4= document.createElement("div")
+  div4.className = "row-xs-1 mar-bot-15 text-left"
+  var div5= document.createElement("div")
+  div5.className = "row-xs-1 cus-gh-hd-pro"
+  var h2 = document.createElement("h2")
+  h2.className = "text-right no-margin"
+  h2.textContent = "Strength"
+  var div6= document.createElement("div")
+  div6.className = "progress progress-mini"
+  var div7 = document.createElement("div")
+  div7.className ="progress-bar bg-green"
+  div7.style = "width: 100%;"
+  button1 = document.createElement("button")
+  button1.textContent = "view"
+  button2 = document.createElement("button")
+  button2.textContent = "reset"
+  div4.appendChild(button1)
+  div4.appendChild(button2)
+  div6.appendChild(div7)
+  div3.appendChild(div4)
+  div5.appendChild(h2)
+  div3.appendChild(div5)
+  div2.appendChild(h1)
+  div2.appendChild(div3)
+  div2.appendChild(div6)
+  div1.appendChild(div2)
+  newdiv.appendChild(div1)
+  master.appendChild(newdiv)*/
