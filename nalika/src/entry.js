@@ -1,15 +1,18 @@
 var fs = require('fs')
 
 async function render(){
+      var user_data
+      console.log(user_data = await read_data())
+      for(i in user_data){
       var master = document.getElementById("master")
       var newdiv= document.createElement("div")
       console.log("div created")
-      newdiv.className = "col-lg-3 col-md-3 col-sm-3 col-xs-12"
+      newdiv.className = "col-lg-3 row-md-3 row-sm-3 row-xs-12 row-mt-3 row-mb-3 row-xg-3"
       var div1=document.createElement("div")
       div1.className = "admin-content analysis-progrebar-ctn res-mg-t-15"
       var h1 = document.createElement('h4');
       h1.className = 'text-left text-uppercase'
-      h1.textContent = 'Sample';
+      h1.textContent = user_data[i].entry
       var div2=document.createElement("div")
       div2.className = "admin-content analysis-progrebar-ctn res-mg-t-15"
       var div3= document.createElement("div")
@@ -20,15 +23,29 @@ async function render(){
       div5.className = "row-xs-1 cus-gh-hd-pro"
       var h2 = document.createElement("h2")
       h2.className = "text-right no-margin"
-      h2.textContent = "Strength"
+      h2.textContent = user_data[i].strength+"%"
       var div6= document.createElement("div")
       div6.className = "progress progress-mini"
       var div7 = document.createElement("div")
-      div7.className ="progress-bar bg-green"
-      div7.style = "width: 100%;"
+      var stren= user_data[i].strength
+      var col = "green"
+      if(stren==0 || stren==25){
+            col = "red"
+      }
+      else if(stren==50){
+            col = "purple"
+      }
+      else if(stren==75){
+            col = "blue"
+      }
+      else if(stren==100){
+            col = "green"
+      }
+      var q="progress-bar bg-"+col
+      div7.className =q
+      div7.style = "width: "+ stren+"%;"
       button1 = document.createElement("button")
       button1.className = "btn btn-primary-spacing "
-//<button id="add111" data-toggle="tooltip" data-placement="left" title="Download Report" class="btn" >View</button>
       button1.textContent = "view"
       button2 = document.createElement("button")
       button2.className = "btn btn-primary-spacing "
@@ -43,9 +60,11 @@ async function render(){
       div1.appendChild(div3)
       div1.appendChild(div6)
       //div1.appendChild(div2)
+      var linebreak = document.createElement("h1")
+      linebreak.textContent = ""
       newdiv.appendChild(div1)
-      master.appendChild(newdiv)
-      console.log(await read_data())
+      newdiv.appendChild(linebreak)
+      master.appendChild(newdiv)}
 }
 
 const read_data = () =>{
