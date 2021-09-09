@@ -3667,3 +3667,8 @@ th.fc-day-header.fc-widget-header {
 	border-color: #152036;
 	color:#fff;
 }
+.btn-primary-spacing 
+{
+margin-right: 5px;
+margin-bottom: 5px !important;
+}
