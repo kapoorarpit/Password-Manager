@@ -5,24 +5,24 @@ const renderer = require('electron').ipcRenderer
 const ipc = require('electron').ipcMain
 const { ipcRenderer } = require('electron')
 
-const submit = document.getElementById('submit')
+
+const submit = document.getElementById('summit')
 
 submit.addEventListener('click',function(event){
     var args = [];
     args.push(document.getElementById('username').value);
     args.push(document.getElementById('password').value);
-    console.log("working")
     renderer.send('login',args)
+    console.log()
 })
 
-ipcRenderer.on("login",function(event, args){
-    conosle.log(args)
+ipcRenderer.on('reply',(event, args)=>{
+    window.console.log("line 19")
+    console.log(args)
+    data_update()
 })
 
-
-
-
-  /*
+function data_update(){
   var master = document.getElementById("master")
   var newdiv= document.createElement("div")
   console.log("div created")
@@ -63,4 +63,5 @@ ipcRenderer.on("login",function(event, args){
   div2.appendChild(div6)
   div1.appendChild(div2)
   newdiv.appendChild(div1)
-  master.appendChild(newdiv)*/
+  master.appendChild(newdiv)
+}

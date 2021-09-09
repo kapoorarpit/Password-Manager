@@ -4,6 +4,7 @@ const url = require('url')
 const shell = require('electron').shell
 const sqlite3 = require('sqlite3').verbose();
 const renderer = require('electron').ipcRenderer
+var fs = require('fs'); 
 
 
 var user_table
@@ -132,8 +133,26 @@ ipcMain.on('login', function(event,args){
     }
   })
   user_table=args[0]+"_entries"
+  var data_query='select * from '+user_table
+  db.all(data_query,function(err,rows){
+  if(err)
+  {
+    console.log(err)
+  }
+  else
+  {
+    console.log(rows)
+    fs.writeFile("local-storage.txt",JSON.stringify(rows), (err) => {
+      if(err){
+          alert("An error ocurred creating the file "+ err)
+      }
+                  
+      console.log("The file has been succesfully saved");
+  });
+  } 
+  })
+  //event.reply('reply',data_entries)
   console.log(args)
-  event.reply('login', 'pong')
 })
 
 
@@ -201,11 +220,10 @@ db.serialize(function () {
   });
 })
 
-
 /*
 db.serialize(function() {
 
-  db.all("SELECT * FROM user", function(err, allRows) {
+  db.all("SELECT * FROM arpit_entries", function(err, allRows) {
 
       if(err != null){
           console.log(err);
@@ -213,6 +231,7 @@ db.serialize(function() {
       console.log(allRows)
   });
 });
+
 
 db.serialize(function() {
 var query="SELECT * FROM "+user_table
@@ -301,6 +320,12 @@ function checkpassword(name, password) {
 
 
 
+/*
+function update_entries(){
+  global.document = new JSDOM(html).window.document;
+  document.getElementById("master")
+  conso
+}
   /*
   var master = document.getElementById("master")
   var newdiv= document.createElement("div")

@@ -1,12 +1,5 @@
-const ipc = require('electron').ipcMain
+var fs = require('fs')
 
-
-ipcMain.on("display",function(event,args){
-    console.log(args)
-})
-
-
-/*
       var master = document.getElementById("master")
       var newdiv= document.createElement("div")
       console.log("div created")
@@ -49,5 +42,17 @@ ipcMain.on("display",function(event,args){
       div1.appendChild(div2)
       newdiv.appendChild(div1)
       master.appendChild(newdiv)
+      read_data()
 
-*/
+function read_data(){
+filepath = path.join(__dirname,'../local-storage.txt')
+fs.readFile(filepath, 'utf-8', (err, data) => {
+      if(err){
+          alert("An error ocurred reading the file :" + err.message);
+          return;
+      }
+
+      // Change how to handle the file content
+      console.log("The file content is : " + data);
+  });
+}
