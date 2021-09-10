@@ -3672,3 +3672,10 @@ th.fc-day-header.fc-widget-header {
 margin-right: 5px;
 margin-bottom: 5px !important;
 }
+.hide {
+  display: none;
+}   
+.myDIV:hover + .hide {
+  display: block;
+  color: red;
+}

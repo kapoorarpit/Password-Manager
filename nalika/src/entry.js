@@ -45,11 +45,12 @@ async function render(){
       div7.className =q
       div7.style = "width: "+ stren+"%;"
       button1 = document.createElement("button")
-      button1.className = "btn btn-primary-spacing "
-      button1.textContent = "view"
+      button1.className = "myDIV btn btn-primary-spacing "
+      button1.textContent = "View"
+      button1.title =user_data[i].password 
       button2 = document.createElement("button")
       button2.className = "btn btn-primary-spacing "
-      button2.textContent = "reset"
+      button2.textContent = "Reset"
       div4.appendChild(button1)
       div4.appendChild(button2)
       div6.appendChild(div7)
@@ -66,6 +67,7 @@ async function render(){
       newdiv.appendChild(linebreak)
       master.appendChild(newdiv)}
 }
+
 
 const read_data = () =>{
       return new Promise((resolve,reject)=>{
