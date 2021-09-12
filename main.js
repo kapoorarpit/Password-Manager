@@ -48,7 +48,7 @@ ipcMain.on('spaces_not_allowed', function(event){
 })
 
 ipcMain.on('too_small', function(event){
-  dialog.showErrorBox('Please try again','Password must be at least eight characters long')
+  dialog.showErrorBox('Please try again','Password must be at least 8 characters long')
 })
 
 ipcMain.on('Numbers not allowed', function(event){

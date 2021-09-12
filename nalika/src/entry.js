@@ -45,7 +45,7 @@ async function render(){
       div7.className =q
       div7.style = "width: "+ stren+"%;"
       button1 = document.createElement("button")
-      button1.className = "myDIV btn btn-primary-spacing "
+      button1.className = "myDIV btn btn-primary-spacing"
       button1.textContent = "View"
       button1.title =user_data[i].password 
       button2 = document.createElement("button")
@@ -66,6 +66,9 @@ async function render(){
       newdiv.appendChild(div1)
       newdiv.appendChild(linebreak)
       master.appendChild(newdiv)}
+      button1.addEventListener('click',function(){
+          console.log("button1.title")
+      })
 }
 
 
@@ -87,6 +90,13 @@ const read_data = () =>{
 
 render()
 
+
+
+const view_password = document.getElementsByClassName('myDIV btn btn-primary-spacing')
+
+view_password.addEventListener('click',function(event){
+    console.log(view_password.title)
+})
 
 
 

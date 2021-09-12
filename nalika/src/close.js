@@ -44,6 +44,10 @@ submit.addEventListener('click',function(event){
     args.push(document.getElementById('check-password').value);
     args.push(100)
     console.log("working")
+    if(args[1].length<8){
+        renderer.send("too_small")
+        return;
+    }
     if(args[1]==args[2])
     {renderer.send("user-data",args);
     var window = remote.getCurrentWindow();
