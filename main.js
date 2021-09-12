@@ -7,6 +7,8 @@ const renderer = require('electron').ipcRenderer
 var fs = require('fs'); 
 
 
+//create window-----------------------------------------------------------------------
+
 var user_table
 var mainWindow
 function createWindow () {
@@ -25,37 +27,10 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
+//create window ends-----------------------------------------------------------------------
 
 
-//Create databse
-/*
-db.close((err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});*/
-
-
-//db-------------------------------------------------------------------------------------------------
-var db = new sqlite3.Database(__dirname + '/app.db');
-
-
-//section ends------------------------------------------------------------------------------------------------
-ipcMain.on("user-data",(event, args)=>{
-  console.log(args);
-  console.log(user_table)
-  var password_strength=checkpassword(args[0],args[1])
-  var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+password_strength+")"
-  db.run(query, function(err) {
-    if (err) {
-      return console.log(err.message);
-    }
-    // get the last insert id
-    console.log(`A row has been inserted with row`);
-  });
-})
-
+//dialog boxes-----------------------------------------------------------------------------
 ipcMain.on('Retry-password-check', function(event){
   dialog.showErrorBox('Password not matching','Please try again')
 })
@@ -66,6 +41,18 @@ ipcMain.on('No-null-allowed', function(event){
 
 ipcMain.on('navigate-login', function(){
 mainWindow.loadFile('./nalika/login.html')
+})
+
+ipcMain.on('spaces_not_allowed', function(event){
+  dialog.showErrorBox('Please try again','White spaces are not allowed in username and password')
+})
+
+ipcMain.on('too_small', function(event){
+  dialog.showErrorBox('Please try again','Password must be at least eight characters long')
+})
+
+ipcMain.on('Numbers not allowed', function(event){
+  dialog.showErrorBox('Please try again','Numbers are not allowed in username')
 })
 
 ipcMain.on('display-strength', function(event,args){
@@ -79,22 +66,13 @@ ipcMain.on('display-strength', function(event,args){
     frame: false
   })
 })
+//dialog boxes ends-----------------------------------------------------------------------------
 
 
+//db section starts-------------------------------------------------------------------------------------------------
+var db = new sqlite3.Database(__dirname + '/app.db');
 
-
-
-
-
-
-
-
-
-
-
-
-// login --------------------
-
+// login starts...........................................--------------------
 ipcMain.on('login', function(event,args){
   console.log("Login")
   var query = "SELECT name FROM user WHERE name = '" + args[0]+"'";
@@ -151,15 +129,12 @@ ipcMain.on('login', function(event,args){
   });
   } 
   })
-  //event.reply('reply',data_entries)
   console.log(args)
 })
+// login ends-----------------------------------------------------------------------------------
 
 
-
-
-
-// register --------------------
+// register starts--------------------------------------------------------- --------------------
 ipcMain.on('register', function(event,args){
 //databse -----------------
 var check_register=0
@@ -210,15 +185,33 @@ db.run(query,function(err){
   win.show()
   console.log("Line 145 'register' working")
 })
+// register ends-----------------------------------------------------------------------------
+
+
+// add data to user table------------------------------------------------------------------
+ipcMain.on("user-data",(event, args)=>{
+  console.log(args);
+  console.log(user_table)
+  var password_strength=checkpassword(args[0],args[1])
+  var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+password_strength+")"
+  db.run(query, function(err) {
+    if (err) {
+      return console.log(err.message);
+    }
+    // get the last insert id
+    console.log(`A row has been inserted with row`);
+  });
+})
+// add data to user table ends------------------------------------------------------------------
 
 
 //checks all the tables
-
 db.serialize(function () {
   db.all("select name from sqlite_master where type='table'", function (err, tables) {
       console.log(tables);
   });
 })
+
 
 /*
 db.serialize(function() {
@@ -245,21 +238,12 @@ var query="DELETE FROM arpit_entries WHERE entry=''"
   });
 });
 */
-var data
-var data_query='select * from arpit_entries'
-db.get(data_query,function(err,rows){
-  if(err)
-  {
-    console.log(err)
-  }
-  else
-  {
-    console.log(rows)
-    data = rows
-  }
-})
+
+//(checks all the tables) ends--------------------------------------------------------------------
+//db ends-----------------------------------------------------------------------------------------
 
 
+//check password strength------------------------------------------------------------------------- 
 function checkpassword(name, password) {
   var strength = 0;
   if (password.match(/[a-z]+/)) {
@@ -317,3 +301,4 @@ function checkpassword(name, password) {
   }
 }
 
+//check password strength ends------------------------------------------------------------------------- 
