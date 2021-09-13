@@ -210,7 +210,32 @@ ipcMain.on("user-data",(event, args)=>{
     // get the last insert id
     console.log(`A row has been inserted with row`);
   });
+  loginclone()
 })
+
+function loginclone(){
+  var data_query='select * from '+user_table
+  db.all(data_query,function(err,rows){
+  if(err)
+  {
+    console.log(err)
+  }
+  else
+  {
+    console.log(rows)
+    fs.writeFile("local-storage.txt",JSON.stringify(rows), (err) => {
+      if(err){
+          alert("An error ocurred creating the file "+ err)
+      }
+                  
+      console.log("The file has been succesfully saved");
+  });
+  } 
+  })
+  let modalPath= path.join(__dirname,'./nalika/index.html')
+  mainWindow.loadFile(modalPath)
+}
+
 // add data to user table ends------------------------------------------------------------------
 
 
@@ -267,9 +292,6 @@ function checkpassword(name, password) {
   if (password.match(/[$@#&!]+/)) {
     strength += 3;
 
-  }
-  if(name.match(password)){
-    return 0
   }
 
   if(password.includes(name)){
