@@ -53,8 +53,9 @@ async function render(){
       button1.textContent = "View"
       button1.title =user_data[i].password 
       button2 = document.createElement("button")
-      button2.className = "btn btn-primary-spacing "
+      button2.className = "btn btn-primary-spacing reset"
       button2.textContent = "Reset"
+      button2.title= user_data[i].entry
       div4.appendChild(button1)
       div4.appendChild(button2)
       div6.appendChild(div7)
@@ -78,7 +79,12 @@ async function render(){
           ipcRenderer.send("password-detail",e.target.title)
         });
       }
-    console.log(btns)
+    const btns2 = document.getElementsByClassName('btn btn-primary-spacing reset');
+    for (let i = 0; i < btns2.length; i++) {
+        btns2[i].addEventListener('click', function (e) {
+          ipcRenderer.send("change-password",e.target.title)
+        });
+      }
 }
 
 function show_pass(password){

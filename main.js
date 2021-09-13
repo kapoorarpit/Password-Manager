@@ -55,6 +55,49 @@ ipcMain.on('Numbers not allowed', function(event){
   dialog.showErrorBox('Please try again','Numbers are not allowed in username')
 })
 
+var change_password_name="";
+ipcMain.on('change-password', function(event,args){
+  console.log(args)
+  change_password_name=args
+  let modalPath= path.join(__dirname,'./nalika/src/reset.html')
+  let win = new BrowserWindow({
+    width: 300, 
+    height: 200 , 
+    frame: false,   
+    //alwaysOnTop: true,
+     webPreferences: {
+    nodeIntegration: true,
+    contextIsolation: false,
+    enableRemoteModule: true,
+    webSecurity: false,
+    transparent : true
+  },})
+  win.on('close', function () { win = null })
+  win.loadFile(modalPath);
+  win.show()
+})
+
+ipcMain.on('changed-data',function(event,args){
+  var query="UPDATE "+user_table+ " SET password" +" = '" + args +"' WHERE entry = '" + change_password_name +"'"
+  db.run(query, function(err, allRows) {
+      if(err != null){
+          console.log(err);
+      }
+      console.log(allRows)
+  });
+  console.log(args)
+  var hard=checkpassword("",args)
+  var query="UPDATE "+user_table+ " SET strength" +" = '" + hard +"' WHERE entry = '" + change_password_name +"'"
+  db.run(query, function(err, allRows) {
+      if(err != null){
+          console.log(err);
+      }
+      console.log(allRows)
+  });
+
+  loginclone()
+})
+
 ipcMain.on('password-detail', function(event,args){
   dialog.showMessageBox(null,{
     title: 'Your password copied to clipboard',
