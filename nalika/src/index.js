@@ -13,8 +13,8 @@ window.onload=function(){
 
 
       let win = new BrowserWindow({
-        width: 400, 
-        height: 200 , 
+        width: 440, 
+        height: 260 , 
         frame: false,   
         //alwaysOnTop: true,
          webPreferences: {

@@ -178,8 +178,8 @@ db.run(query,function(err){
   //naviagate
   let modalPath= path.join(__dirname,'./nalika/src/navigate.html')
   let win = new BrowserWindow({
-    width: 400, 
-    height: 200 , 
+    width: 300, 
+    height: 170 , 
     frame: false,   
     //alwaysOnTop: true,
      webPreferences: {

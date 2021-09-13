@@ -13,7 +13,7 @@ suggession.addEventListener('click',function(event){
     let modalPath= path.join(__dirname,'suggestion.html')
     let win = new BrowserWindow({
         width: 450, 
-        height: 250 , 
+        height: 300, 
         frame: false,   
         //alwaysOnTop: true,
          webPreferences: {
