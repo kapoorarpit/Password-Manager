@@ -5,7 +5,7 @@ const shell = require('electron').shell
 const sqlite3 = require('sqlite3').verbose();
 const renderer = require('electron').ipcRenderer
 var fs = require('fs'); 
-
+const { clipboard } = require('electron')
 
 //create window-----------------------------------------------------------------------
 
@@ -53,6 +53,15 @@ ipcMain.on('too_small', function(event){
 
 ipcMain.on('Numbers not allowed', function(event){
   dialog.showErrorBox('Please try again','Numbers are not allowed in username')
+})
+
+ipcMain.on('password-detail', function(event,args){
+  dialog.showMessageBox(null,{
+    title: 'Your password copied to clipboard',
+    message: args,
+    details : "Password copied to clipboard",
+    frame: false,
+  }, clipboard.writeText(args))
 })
 
 ipcMain.on('display-strength', function(event,args){

@@ -1,5 +1,8 @@
+const { ipcRenderer } = require('electron');
 var fs = require('fs')
 
+
+var arr=[];
 async function render(){
       var user_data
       console.log(user_data = await read_data())
@@ -46,6 +49,7 @@ async function render(){
       div7.style = "width: "+ stren+"%;"
       button1 = document.createElement("button")
       button1.className = "myDIV btn btn-primary-spacing"
+      button1.id= user_data[i].entry
       button1.textContent = "View"
       button1.title =user_data[i].password 
       button2 = document.createElement("button")
@@ -65,12 +69,21 @@ async function render(){
       linebreak.textContent = ""
       newdiv.appendChild(div1)
       newdiv.appendChild(linebreak)
-      master.appendChild(newdiv)}
-      button1.addEventListener('click',function(){
-          console.log("button1.title")
-      })
+      master.appendChild(newdiv)
+      var ta= document.getElementById(user_data[i].entry)
+    }
+    const btns = document.getElementsByClassName('myDIV btn btn-primary-spacing');
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function (e) {
+          ipcRenderer.send("password-detail",e.target.title)
+        });
+      }
+    console.log(btns)
 }
 
+function show_pass(password){
+    console.log(password)
+}
 
 const read_data = () =>{
       return new Promise((resolve,reject)=>{
@@ -95,14 +108,15 @@ render()
 const view_password = document.getElementsByClassName('myDIV btn btn-primary-spacing')
 
 view_password.addEventListener('click',function(event){
-    console.log(view_password.title)
+    console.log("line 105")
 })
 
 
-
-
-
-
+document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id == 'yahoo' ) {
+      console.log
+    };
+  } );
 
 
 
