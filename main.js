@@ -20,7 +20,8 @@ function createWindow () {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-      webSecurity: false
+      webSecurity: false,
+      resizable:false
     },
   }) 
   mainWindow.loadFile('./nalika/login.html')
@@ -70,7 +71,8 @@ ipcMain.on('change-password', function(event,args){
     contextIsolation: false,
     enableRemoteModule: true,
     webSecurity: false,
-    transparent : true
+    transparent : true,
+    resizable:false
   },})
   win.on('close', function () { win = null })
   win.loadFile(modalPath);
@@ -230,7 +232,8 @@ db.run(query,function(err){
     contextIsolation: false,
     enableRemoteModule: true,
     webSecurity: false,
-    transparent : true
+    transparent : true,
+    resizable:false
   },})
   win.on('close', function () { win = null })
   win.loadFile(modalPath);
@@ -355,6 +358,7 @@ function checkpassword(name, password) {
   strength=10
   switch (strength) {
     case 0:
+      return 0;
     case 1:
     case 2:
     case 3: 

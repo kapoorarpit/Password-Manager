@@ -22,7 +22,8 @@ window.onload=function(){
         contextIsolation: false,
         enableRemoteModule: true,
         webSecurity: false,
-        transparent : true
+        transparent : true,
+        resizable:false
       },})
       win.on('close', function () { win = null })
       win.loadFile(modalPath);

@@ -21,7 +21,9 @@ suggession.addEventListener('click',function(event){
         contextIsolation: false,
         enableRemoteModule: true,
         webSecurity: false,
-        transparent : true
+        transparent : true,
+        hasShadow: true,
+        resizable:false
       },})
       win.on('close', function () { win = null })
       win.loadFile(modalPath);
