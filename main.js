@@ -62,8 +62,8 @@ ipcMain.on('change-password', function(event,args){
   change_password_name=args
   let modalPath= path.join(__dirname,'./nalika/src/reset.html')
   let win = new BrowserWindow({
-    width: 300, 
-    height: 200 , 
+    width: 400, 
+    height: 300 , 
     frame: false,   
     //alwaysOnTop: true,
      webPreferences: {
@@ -72,7 +72,7 @@ ipcMain.on('change-password', function(event,args){
     enableRemoteModule: true,
     webSecurity: false,
     transparent : true,
-    resizable:false
+    resizable:false,
   },})
   win.on('close', function () { win = null })
   win.loadFile(modalPath);
@@ -380,3 +380,29 @@ function checkpassword(name, password) {
 }
 
 //check password strength ends------------------------------------------------------------------------- 
+
+
+/*
+ Job brief
+
+We’re looking for a results-driven Sales Representative with excellent interpersonal skills to actively seek out and engage customer prospects.
+
+ Responsibilities
+
+Present, promote and sell products/services using solid arguments to existing and prospective customers
+Perform cost-benefit and needs analysis of existing/potential customers to meet their needs
+Establish, develop and maintain positive business and customer relationships
+Reach out to customer leads through cold calling
+Expedite the resolution of customer problems and complaints to maximize satisfaction
+Achieve agreed upon sales targets and outcomes within schedule
+Coordinate sales effort with team members and other departments
+Keep abreast of best practices and promotional trends
+Continuously improve through feedback 
+ Requirements
+
+Highly motivated and the target is driven with a proven track record in sales
+Excellent selling, negotiation and communication skills
+Prioritizing, time management and organizational skills
+Ability to create and deliver presentations tailored to the audience needs
+Relationship management skills and openness to feedback
+*/

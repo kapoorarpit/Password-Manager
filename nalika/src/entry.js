@@ -2,7 +2,6 @@ const { ipcRenderer } = require('electron');
 var fs = require('fs')
 
 
-var arr=[];
 async function render(){
       var user_data
       console.log(user_data = await read_data())
