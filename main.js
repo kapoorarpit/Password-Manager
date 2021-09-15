@@ -251,6 +251,7 @@ ipcMain.on("user-data",(event, args)=>{
   var query="INSERT INTO " + user_table+" VALUES('"+args[0]+"','"+args[1]+"',"+password_strength+")"
   db.run(query, function(err) {
     if (err) {
+      dialog.showErrorBox("Entry exist","Please try again with another name");
       return console.log(err.message);
     }
     // get the last insert id
