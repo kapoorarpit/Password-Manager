@@ -1,7 +1,7 @@
 # How to use
 
 #### Register using unique user_name and strong password.
-![1](screenshots/1(1).png)
+![1](screenshots/1 (1).png)
 
 ![2](1(2).png)
 
