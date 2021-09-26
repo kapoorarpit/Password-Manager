@@ -4,5 +4,5 @@
 
 # More upcoming Features
  * All of user's stored data will be in encrypted form.
- * The SQLite3 database will be replaced by a file with random extension which will be in encrypted form.
+ * The SQLite3 database will be replaced by an encrypted file worthless for anyone other than this tool with a random extension file.
  * More cloud services like AWS, Dropbox, Google cloud will be added to make it easy for users.
