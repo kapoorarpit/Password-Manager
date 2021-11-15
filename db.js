@@ -30,12 +30,7 @@ class DB {
             };
             let encryptedString = filedata.toString();
             let ecnryptedData = encryptedString.slice(30, filedata.toString().length - 30);
-            let prevData;
-            if (ecnryptedData) {
-                prevData = JSON.parse(this.encrypt.decrypt(ecnryptedData));
-            } else {
-                prevData = {};
-            };
+            let prevData = ecnryptedData ? JSON.parse(this.encrypt.decrypt(ecnryptedData)) : {};
             let dataToWrite = encryptedString.slice(0,30)+this.encrypt.encrypt(JSON.stringify({...prevData, ...data}))+encryptedString.slice(encryptedString.length - 30, encryptedString.length);
             fs.writeFile(`${this.filepath}/db.spdb`,dataToWrite,(err) => {
                 if (err) console.error(err);
